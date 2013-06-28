@@ -1,0 +1,28 @@
+Struts2GWTPlugin v0.2
+http://github.com/rohitggarg/struts2gwtplugin
+Distributed under the Apache Software License 2.0 - http://www.apache.org/licenses/LICENSE-2.0
+
+What is this?
+====================================================
+Struts2GWTPlugin is a Struts 2 plugin which allows developers using the Google Web Toolkit (GWT)
+to call Struts actions and return GWT RPC-compatible objects without writing wrapping classes or
+additional code. This plugin returns an actual GWT RPC object, NOT the standard Struts result.
+This also allows your GWT application to operate normally without any special coding on the client, 
+just follow the standard GWT RPC programming model.
+
+
+How do you use this?
+====================================================
+To use the plug-in do the following:
+
+1. Add the plugin JAR file to your project's classpath
+2. Edit your struts.xml file so that your package extends the "gwt-default" package
+3. For actions using the plugin, add the interceptor reference: <interceptor-ref name="gwt"/>. This should be the last interceptor as it terminates the chain.
+
+That's it, there is nothing more to do. Now when the client calls your action it will receive 
+the GWT RPC object instead of the Struts result.
+
+
+History
+=====================================================
+v1.0         Initial version, Added latest GWT plugin compatibility
