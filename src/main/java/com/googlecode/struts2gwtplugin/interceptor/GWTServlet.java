@@ -30,6 +30,8 @@ import com.google.gwt.user.server.rpc.RPC;
 import com.google.gwt.user.server.rpc.RPCRequest;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.opensymphony.xwork2.ActionInvocation;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class is a modified version of GWT's RemoteServiceServlet.java
@@ -37,6 +39,7 @@ import com.opensymphony.xwork2.ActionInvocation;
  */
 @SuppressWarnings("serial")
 class GWTServlet extends RemoteServiceServlet {
+	private transient final Log log = LogFactory.getLog(getClass());
 
 	/** Context for the servlet */
 	private ServletContext servletContext;
@@ -132,6 +135,7 @@ class GWTServlet extends RemoteServiceServlet {
 		} catch (Exception e) {
 			// check for checked exceptions
 			if (e.getCause() != null) {
+				log.error("Struts2GWT exception", e.getCause());
 				Throwable cause = e.getCause();
 				boolean found = false;
 				for (Class<?> checkedException : rpcRequest.getMethod().getExceptionTypes()){
@@ -141,6 +145,7 @@ class GWTServlet extends RemoteServiceServlet {
 					}
 				}
 				if (!found) {
+					
 					throw new Struts2GWTBridgeException("Unhandled exception!", cause);
 				}
 				result = RPC.encodeResponseForFailure(null, e.getCause(), rpcRequest.getSerializationPolicy());
